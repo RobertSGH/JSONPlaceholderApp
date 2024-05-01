@@ -7,33 +7,16 @@ import {
   Card,
 } from '@mui/material';
 import { Post } from '../../models/Post';
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import useFetchData from '../../hook/FetchData';
 
 const PostDetails = () => {
-  const [post, setPost] = useState<Post>();
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const { id } = useParams();
-
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
-      .then((response) => {
-        setPost(response.data);
-        setError(null);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setError('Failed to load post details');
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [id]);
+  const { id } = useParams<{ id: string }>();
+  const {
+    data: post,
+    isLoading,
+    error,
+  } = useFetchData<Post>(`https://jsonplaceholder.typicode.com/posts/${id}`);
 
   return (
     <Box
@@ -45,10 +28,10 @@ const PostDetails = () => {
         justifyContent: 'center',
       }}
     >
-      {loading ? (
+      {isLoading ? (
         <CircularProgress />
       ) : error ? (
-        <Alert severity='error'>{error}</Alert>
+        <Alert severity='error'>{error.message}</Alert>
       ) : post ? (
         <Card
           raised
