@@ -42,7 +42,7 @@ const PostList = () => {
     <List sx={{ maxWidth: 800, margin: 'auto' }}>
       {posts?.map((post: Post) => (
         <div key={post.id}>
-          <Card sx={{ my: 1, backgroundColor: 'ActiveBorder', color: 'white' }}>
+          <Card sx={{ my: 1, backgroundColor: 'grey', color: 'white' }}>
             <ListItemButton
               component={Link}
               href={`/posts/${post.id}`}

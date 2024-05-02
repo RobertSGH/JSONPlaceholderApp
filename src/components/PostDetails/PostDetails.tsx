@@ -37,7 +37,7 @@ const PostDetails = () => {
           raised
           sx={{
             maxWidth: 900,
-            backgroundColor: 'ActiveBorder',
+            backgroundColor: 'grey',
             color: 'white',
           }}
         >
